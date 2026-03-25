@@ -7,9 +7,22 @@
 <style>
 body {
   font-family: Arial;
-  background: #020617;
+  margin: 0;
   color: white;
   text-align: center;
+
+  /* 🏋️ Gym Background */
+  background: url('https://images.unsplash.com/photo-1599058917212-d750089bc07e') no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* Dark overlay for readability */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: -1;
 }
 
 h1 {
@@ -29,14 +42,16 @@ select {
 }
 
 .card {
-  background: #1e293b;
+  background: rgba(30, 41, 59, 0.9);
   margin: 10px 0;
   padding: 15px;
   border-radius: 10px;
+  text-align: left;
 }
 
 .time {
   font-weight: bold;
+  font-size: 16px;
 }
 
 button {
@@ -44,13 +59,19 @@ button {
   padding: 8px 15px;
   border: none;
   border-radius: 5px;
-  background: #22c55e;
-  color: white;
+  background: #facc15; /* 🟡 Yellow */
+  color: black;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .done {
   background: #065f46 !important;
+}
+
+.done button {
+  background: #22c55e !important; /* 🟢 Green */
+  color: white;
 }
 
 .progress {
@@ -73,21 +94,29 @@ Completed: <span id="count">0</span> / 14
 </div>
 
 <script>
+function getIcon(task) {
+  if (task.includes("Treadmill")) return "🏃";
+  if (task.includes("Abs")) return "🔥";
+  if (task.includes("Push-ups")) return "💪";
+  if (task.includes("Plank")) return "🧘";
+  return "🏋️";
+}
+
 const plan = [
-"5:00 AM - Treadmill:- [•incline walk (3–3.5 km/h, incline 12–14]",
-"5:30 AM - Abs Workout:- [•Plank – 3 × 45–60 sec • Leg raises – 3 × 12 • Crunches – 3 × 15 • Mountain climbers – 2 × 30]",
-"6:30 AM - Push-ups + Pull-ups:- [•10–12 push-ups • 5 pull-ups]",
-"7:30 AM - Plank + Crunches:- [•Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"8:30 AM - Push-ups + Pull-ups:- [•10–12 push-ups • 5 pull-ups]",
-"11:30 AM - Plank + Crunches:- [•Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"12:30 PM - Push-ups + Pull-ups:- [•10–12 push-ups • 5 pull-ups]",
-"1:30 PM - Plank + Crunches:- [•Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"2:30 PM - Push-ups + Pull-ups:- [•10–12 push-ups • 5 pull-ups]",
-"3:30 PM - Plank + Crunches:- [•Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"4:30 PM - Push-ups + Pull-ups:- [•10–12 push-ups • 5 pull-ups]",
-"5:30 PM - Plank + Crunches:- [•Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"6:30 PM - Push-ups + Pull-ups:- [•10–12 push-ups • 5 pull-ups]",
-"7:30 PM - Plank + Crunches ✅ (Final Burn):- [•Plank 3 x (20 sec) • Crunches 3x (10 reps)]",  
+"5:00 AM - Treadmill:- [• incline walk (3–3.5 km/h, incline 12–14)]",
+"5:30 AM - Abs Workout:- [• Plank – 3 × 45–60 sec • Leg raises – 3 × 12 • Crunches – 3 × 15 • Mountain climbers – 2 × 30]",
+"6:30 AM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
+"7:30 AM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
+"8:30 AM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
+"11:30 AM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
+"12:30 PM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
+"1:30 PM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
+"2:30 PM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
+"3:30 PM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
+"4:30 PM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
+"5:30 PM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
+"6:30 PM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
+"7:30 PM - Plank + Crunches ✅ (Final Burn):- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]"
 ];
 
 let currentDay = localStorage.getItem("currentDay") || "Day 1";
@@ -130,7 +159,7 @@ function render() {
 
     container.innerHTML += `
       <div class="card ${done ? 'done' : ''}">
-        <div class="time">${task}</div>
+        <div class="time">${getIcon(task)} ${task}</div>
         <button onclick="mark(${index})">
           ${done ? "Completed" : "Mark Done"}
         </button>
