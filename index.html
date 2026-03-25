@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Daily Fitness Hourly Tracker</title>
+<title>14 Day Fitness Tracker</title>
 
 <style>
 body {
   font-family: Arial;
   background: #020617;
   color: white;
-  margin: 0;
   text-align: center;
 }
 
@@ -23,6 +22,12 @@ h1 {
   padding: 20px;
 }
 
+select {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
 .card {
   background: #1e293b;
   margin: 10px 0;
@@ -32,7 +37,6 @@ h1 {
 
 .time {
   font-weight: bold;
-  font-size: 18px;
 }
 
 button {
@@ -50,57 +54,82 @@ button {
 }
 
 .progress {
-  font-size: 18px;
   margin-top: 20px;
+  font-size: 18px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🔥 Daily Fitness Hourly Tracker</h1>
+<h1>🔥 14-Day Fitness Tracker</h1>
+
+<select id="daySelect" onchange="changeDay()"></select>
 
 <div class="container" id="schedule"></div>
 
 <div class="progress">
-Completed: <span id="count">0</span> / 12
+Completed: <span id="count">0</span> / 13
 </div>
-
-<button onclick="resetDay()">Reset Day</button>
 
 <script>
 const plan = [
-{time:"5:00 AM", task:"Treadmill (Fat Loss)"},
-{time:"5:30 AM", task:"Abs Workout"},
-{time:"6:30 AM", task:"Push-ups + Pull-ups"},
-{time:"7:30 AM", task:"Plank + Crunches"},
-{time:"8:30 AM", task:"Push-ups + Pull-ups"},
-{time:"11:30 AM", task:"Plank + Crunches"},
-{time:"12:30 PM", task:"Push-ups + Pull-ups"},
-{time:"1:30 PM", task:"Plank + Crunches"},
-{time:"2:30 PM", task:"Push-ups + Pull-ups"},
-{time:"3:30 PM", task:"Plank + Crunches"},
-{time:"4:30 PM", task:"Push-ups + Pull-ups"},
-{time:"5:30 PM", task:"Plank + Crunches"},
-{time:"6:30 PM", task:"Push-ups + Pull-ups"}
+"5:00 AM - Treadmill",
+"5:30 AM - Abs Workout",
+"6:30 AM - Push-ups + Pull-ups",
+"7:30 AM - Plank + Crunches",
+"8:30 AM - Push-ups + Pull-ups",
+"11:30 AM - Plank + Crunches",
+"12:30 PM - Push-ups + Pull-ups",
+"1:30 PM - Plank + Crunches",
+"2:30 PM - Push-ups + Pull-ups",
+"3:30 PM - Plank + Crunches",
+"4:30 PM - Push-ups + Pull-ups",
+"5:30 PM - Plank + Crunches",
+"6:30 PM - Push-ups + Pull-ups"
 ];
 
-let progress = JSON.parse(localStorage.getItem("hourlyFitness")) || {};
+let currentDay = localStorage.getItem("currentDay") || "Day 1";
+
+const daySelect = document.getElementById("daySelect");
+
+// Populate dropdown
+for (let i = 1; i <= 14; i++) {
+  let option = document.createElement("option");
+  option.value = "Day " + i;
+  option.text = "Day " + i;
+  daySelect.appendChild(option);
+}
+
+daySelect.value = currentDay;
+
+function getProgressKey() {
+  return "fitness_" + currentDay;
+}
+
+function getProgress() {
+  return JSON.parse(localStorage.getItem(getProgressKey())) || {};
+}
+
+function saveProgress(data) {
+  localStorage.setItem(getProgressKey(), JSON.stringify(data));
+}
 
 function render() {
   const container = document.getElementById("schedule");
   container.innerHTML = "";
+
+  let progress = getProgress();
   let count = 0;
 
-  plan.forEach((item, index) => {
-    const done = progress[index];
+  plan.forEach((task, index) => {
+    let done = progress[index];
 
     if (done) count++;
 
     container.innerHTML += `
       <div class="card ${done ? 'done' : ''}">
-        <div class="time">${item.time}</div>
-        <div>${item.task}</div>
+        <div class="time">${task}</div>
         <button onclick="mark(${index})">
           ${done ? "Completed" : "Mark Done"}
         </button>
@@ -112,14 +141,15 @@ function render() {
 }
 
 function mark(index) {
+  let progress = getProgress();
   progress[index] = true;
-  localStorage.setItem("hourlyFitness", JSON.stringify(progress));
+  saveProgress(progress);
   render();
 }
 
-function resetDay() {
-  progress = {};
-  localStorage.setItem("hourlyFitness", JSON.stringify(progress));
+function changeDay() {
+  currentDay = daySelect.value;
+  localStorage.setItem("currentDay", currentDay);
   render();
 }
 
