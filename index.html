@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fitness Tracker</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  margin: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  background: #1e293b;
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+.completed {
+  background: #065f46 !important;
+}
+
+.progress {
+  margin-top: 20px;
+  font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🔥 2 Week Fitness Plan Tracker</h1>
+
+<div class="container">
+
+<div class="card">
+<h2>🌅 Morning Cardio</h2>
+<p>Week 1: Walk + Jog + Incline</p>
+<p>Week 2: Increase speed & incline</p>
+<button onclick="markDone('cardio')">Mark Done</button>
+</div>
+
+<div class="card">
+<h2>💥 Abs Workout</h2>
+<p>Plank, Leg Raises, Crunches, Mountain Climbers</p>
+<button onclick="markDone('abs')">Mark Done</button>
+</div>
+
+<div class="card">
+<h2>🏋️ Hourly Workout</h2>
+<p>Push-ups, Pull-ups, Plank, Crunches rotation</p>
+<button onclick="markDone('hourly')">Mark Done</button>
+</div>
+
+<div class="card">
+<h2>🍽️ Diet Control</h2>
+<p>Healthy eating + protein + no junk</p>
+<button onclick="markDone('diet')">Mark Done</button>
+</div>
+
+<div class="card">
+<h2>📅 Today Progress</h2>
+<p id="progressText">0 / 4 Completed</p>
+<button onclick="resetDay()">Reset Day</button>
+</div>
+
+</div>
+
+<script>
+let progress = JSON.parse(localStorage.getItem("fitnessProgress")) || {
+  cardio: false,
+  abs: false,
+  hourly: false,
+  diet: false
+};
+
+function updateUI() {
+  let count = 0;
+
+  for (let key in progress) {
+    if (progress[key]) count++;
+  }
+
+  document.getElementById("progressText").innerText =
+    count + " / 4 Completed";
+}
+
+function markDone(type) {
+  progress[type] = true;
+  localStorage.setItem("fitnessProgress", JSON.stringify(progress));
+  updateUI();
+}
+
+function resetDay() {
+  progress = {
+    cardio: false,
+    abs: false,
+    hourly: false,
+    diet: false
+  };
+  localStorage.setItem("fitnessProgress", JSON.stringify(progress));
+  updateUI();
+}
+
+updateUI();
+</script>
+
+</body>
+</html>
