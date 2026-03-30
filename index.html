@@ -102,6 +102,7 @@ Completed: <span id="count">0</span> / 14
 
 <script>
 function getIcon(task) {
+  if (task.includes("Green Tea")) return "🍵";
   if (task.includes("Treadmill")) return "🏃";
   if (task.includes("Abs")) return "🔥";
   if (task.includes("Push-ups")) return "💪";
@@ -116,14 +117,17 @@ const plan =[
 "6:30 AM - Breakfast (Chickpeas + 2 Eggs + Moringa)",  
 "7:00 AM - Push-ups (3x10) + Pull-ups (3x5) + Apply for Jobs",
 "8:00 AM - Core (Crunches 3x15 + Plank 2x45s)+ Work (45 Min)",
+"8:30 AM - Green Tea",
 "9:00 AM - Push-ups (3x10) + Pull-ups (3x5) + Work (45 Min)",
 "10:00 AM - Core (Crunches 3x15 + Plank 2x45s) + Work (45 Min)",
+"10:30 AM - Green Tea",
 "11:00 AM - Push-ups (3x10) + Pull-ups (3x5) + Work (45 Min)",
 "12:00 PM - Core (Crunches 3x15 + Plank 2x45s) + Work (45 Min)",
 "12:45 PM - Apple Cider Vinegar + Water",
 "1:00 PM - Lunch (2 Eggs + Soya + Curd) + Work (45 Min)",
 "1:45 PM - Ginger + Saunf Drink",
 "2:00 PM - Study (15 min) + Work (45 Min)",
+"2:30 PM - Green Tea",
 "3:00 PM - Study (15 min) + Work (45 Min)",
 "4:00 PM - Study (15 min) + Work (45 Min)",
 "5:00 PM - Study (15 min) + Work (45 Min)",
