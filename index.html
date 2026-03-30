@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>14 Day Fitness Tracker</title>
+<title>2 Months Fitness & Career Tracker</title>
 
 <style>
 body {
@@ -90,7 +90,7 @@ button {
 
 <body>
 
-<h1>🔥 14-Day Fitness Tracker</h1>
+<h1>🔥2 Months Fitness & Career Tracker</h1>
 
 <select id="daySelect" onchange="changeDay()"></select>
 
@@ -109,28 +109,34 @@ function getIcon(task) {
   return "🏋️";
 }
 
-const plan = [
-"5:00 AM - Treadmill:- [• incline walk (3–3.5 km/h, incline 12–14)]",
-"5:30 AM - Abs Workout:- [• Plank – 3 × 45–60 sec • Leg raises – 3 × 12 • Crunches – 3 × 15 • Mountain climbers – 2 × 30]",
-"6:30 AM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
-"7:30 AM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"8:30 AM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
-"11:30 AM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"12:30 PM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
-"1:30 PM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"2:30 PM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
-"3:30 PM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"4:30 PM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
-"5:30 PM - Plank + Crunches:- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]",
-"6:30 PM - Push-ups + Pull-ups:- [• 10–12 push-ups • 5 pull-ups]",
-"7:30 PM - Plank + Crunches ✅ (Final Burn):- [• Plank 3 x (20 sec) • Crunches 3x (10 reps)]"
+const plan =[
+"4:30 AM - Black Coffee + Cardamom",
+"5:00 AM - Treadmill (30 min Incline)",
+"5:45 AM - Bath + Cooking (Breakfast= Chickpeas + 2 Egg omlette + Moringa) and (Lunch 2 Egg omlette + Soya)",
+"6:30 AM - Breakfast (Chickpeas + 2 Eggs + Moringa)",  
+"7:00 AM - Push-ups (3x10) + Pull-ups (3x5) + Apply for Jobs",
+"8:00 AM - Core (Crunches 3x15 + Plank 2x45s)+ Work (45 Min)",
+"9:00 AM - Push-ups (3x10) + Pull-ups (3x5) + Work (45 Min)",
+"10:00 AM - Core (Crunches 3x15 + Plank 2x45s) + Work (45 Min)",
+"11:00 AM - Push-ups (3x10) + Pull-ups (3x5) + Work (45 Min)",
+"12:00 PM - Core (Crunches 3x15 + Plank 2x45s) + Work (45 Min)",
+"1:00 PM - Lunch (2 Eggs + Soya + Curd) + Work (45 Min)",
+"1:45 PM - Ginger + Saunf Drink",
+"2:00 PM - Study (15 min) + Work (45 Min)",
+"3:00 PM - Study (15 min) + Work (45 Min)",
+"4:00 PM - Study (15 min) + Work (45 Min)",
+"5:00 PM - Study (15 min) + Work (45 Min)",
+"6:00 PM - Study (15 min) + Work (45 Min)",
+"7:00 PM - Ginger + Saunf Drink + cooking + plates",
+"8:00 PM - Dinner (2 Egg omlette + Dal) + Reading",
+"9:00 PM - Sleep"
 ];
 
 let currentDay = localStorage.getItem("currentDay") || "Day 1";
 
 const daySelect = document.getElementById("daySelect");
 
-for (let i = 1; i <= 14; i++) {
+for (let i = 1; i <= 60; i++) {
   let option = document.createElement("option");
   option.value = "Day " + i;
   option.text = "Day " + i;
